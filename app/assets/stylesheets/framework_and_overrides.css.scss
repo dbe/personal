@@ -1,3 +1,8 @@
+//Override bootstrap variables here
+//Example: $link-color: #FFF;
+$link-color: #FFF;
+
+
 // import the CSS framework
 @import "bootstrap-sprockets";
 @import "bootstrap";
