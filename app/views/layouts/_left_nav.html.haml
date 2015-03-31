@@ -5,11 +5,11 @@
   .col-md-12
     %ul#nav-links
       %li.list-unstyled
-        = link_to 'About', about_path
+        = link_to 'About', about_path, :class => @selected_nav == :about ? 'selected' : 'not-selected'
       %li.list-unstyled
-        = link_to 'Experience', experience_path
+        = link_to 'Experience', experience_path, :class => @selected_nav == :experience ? 'selected' : 'not-selected'
 .row
   .col-md-12
     #social-links
-      = link_to image_tag('GitHub-Mark-32px.png'), 'http://www.github.com/dbe'
-      = link_to image_tag('linkedin-32px.png'), 'https://www.linkedin.com/in/davidbrianethier'
+      = link_to image_tag('GitHub-Mark-32px.png'), 'http://www.github.com/dbe', :target => '_blank'
+      = link_to image_tag('linkedin-32px.png'), 'https://www.linkedin.com/in/davidbrianethier', :target => '_blank'
