@@ -1,9 +1,15 @@
-= image_tag 'profile-circle.png'
-%ul.links
-  %li.list-unstyled
-    = link_to 'About', about_path
-  %li.list-unstyled
-    = link_to 'Experience', experience_path
 .row
-  = link_to image_tag('GitHub-Mark-32px.png'), 'http://www.github.com/dbe'
-  = link_to image_tag('linkedin-32px.png'), 'http://www.github.com/dbe'
+  .col-md-12
+    = image_tag 'profile-circle.png'
+.row
+  .col-md-12
+    %ul#nav-links
+      %li.list-unstyled
+        = link_to 'About', about_path
+      %li.list-unstyled
+        = link_to 'Experience', experience_path
+.row
+  .col-md-12
+    #social-links
+      = link_to image_tag('GitHub-Mark-32px.png'), 'http://www.github.com/dbe'
+      = link_to image_tag('linkedin-32px.png'), 'http://www.github.com/dbe'
