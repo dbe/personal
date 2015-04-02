@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  root 'home#about'
+  root 'home#static', :defaults => {:first_nav => 'about'}
 
-  get '/about/', to: 'home#about', as: 'about'
-  get '/experience/', to: 'home#experience', as: 'experience'
+  get '/:first_nav(/:second_nav(/:third_nav))', :to => 'home#static', :defaults => {:first_nav => 'about', :second_nav => 'career', :third_nav => 'twitch_bot'}
 end

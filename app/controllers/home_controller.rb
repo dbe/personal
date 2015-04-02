@@ -1,9 +1,11 @@
 class HomeController < ApplicationController
-  def about
-    @selected_nav = :about
-  end
-
-  def experience
-    @selected_nav = :experience
+  def static
+    if params[:first_nav] == 'about'
+      return render 'about'
+    elsif params[:second_nav] == 'career'
+      return render 'career'
+    else
+      return render params[:third_nav]
+    end
   end
 end

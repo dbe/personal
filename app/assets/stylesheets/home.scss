@@ -16,15 +16,19 @@ body {
   font-weight: 300;
 }
 
-#nav-links a.selected {
+#nav-links a {
+  font-size: 18px;
+  color: #8c8c8c;
+}
+
+#nav-links li.selected a {
   font-size: 20px;
   margin-left: 3px;
   color: #333;
 }
 
-#nav-links a.not-selected {
-  font-size: 18px;
-  color: #8c8c8c;
+#nav-links li.hidden a {
+  display: none;
 }
 
 #social-links {

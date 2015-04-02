@@ -4,10 +4,13 @@
 .row
   .col-md-12
     %ul#nav-links
-      %li.list-unstyled
-        = link_to 'About', about_path, :class => @selected_nav == :about ? 'selected' : 'not-selected'
-      %li.list-unstyled
-        = link_to 'Experience', experience_path, :class => @selected_nav == :experience ? 'selected' : 'not-selected'
+      = nav_link(params, 'about')
+      = nav_link(params, 'experience')
+      %ul
+        = nav_link(params, 'experience', 'career')
+        = nav_link(params, 'experience', 'products')
+        %ul
+          = nav_link(params, 'experience', 'products', 'twitch_bot')
 .row
   .col-md-12
     #social-links
