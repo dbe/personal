@@ -40,3 +40,23 @@ body {
   float: left;
   margin-right: 10px;
 }
+
+//-----------Career----------------//
+
+.career-logo {
+  width: 128px;
+  height: 128px;
+  margin: 0 auto;
+}
+
+.career-logo::after {
+  display: block;
+  position: relative;
+  top: -5px;
+  height: 128px;
+  width: 1px;
+  margin: 0 auto;
+  z-index: -1;
+  background-color: #ddd;
+  content: '';
+}
