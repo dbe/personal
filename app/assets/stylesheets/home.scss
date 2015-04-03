@@ -64,14 +64,20 @@ body {
   content: '';
 }
 
-.career-description-left {
-  width: 70%;
+.career-row {
+  margin-bottom: 75px;
+}
+
+.career-description {
+  width: 80%;
+}
+
+.career-description.left {
   float: right;
   text-align: right;
 }
 
-.career-description-right {
-  width: 70%;
+.career-description.right {
   float: left;
   text-align: left;
 }
