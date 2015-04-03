@@ -10,7 +10,6 @@ body {
   margin: 30px;
 }
 
-
 #nav-links {
   margin-top: 40px;
   font-weight: 300;
@@ -19,6 +18,10 @@ body {
 #nav-links a {
   font-size: 18px;
   color: #8c8c8c;
+}
+
+#nav-links ul {
+  padding-left: 20px;
 }
 
 #nav-links li.selected a {
