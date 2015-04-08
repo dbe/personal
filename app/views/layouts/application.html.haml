@@ -13,4 +13,6 @@
         .col-md-3
           = render 'layouts/left_nav'
         .col-md-9
+          - if params[:first_nav] != 'about'
+            = render :partial => 'breadcrumb'
           = yield
