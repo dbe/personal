@@ -17,8 +17,16 @@ body {
 
 #nav-links a {
   font-size: 18px;
+
+  //Fallback for older browsers
   color: #8c8c8c;
+  color: rgba(0, 0, 0, .26);
+
+  &:hover {
+    color: rgba(0, 0, 0, .54);
+  }
 }
+
 
 #nav-links ul {
   padding-left: 20px;
@@ -26,8 +34,10 @@ body {
 
 #nav-links li.selected a {
   font-size: 20px;
-  margin-left: 3px;
-  color: #333;
+
+  //Fallback for older browsers
+  color: #000;
+  color: rgba(0, 0, 0, .87);
 }
 
 #nav-links li.hidden a {
@@ -80,4 +90,21 @@ body {
 .career-description.right {
   float: left;
   text-align: left;
+}
+
+
+//-------------About-------------//
+
+.horizontal-line {
+  border-bottom: 1px solid #FF5722;
+}
+
+#home-intro {
+  font-size: 72px;
+  font-weight: 100;
+}
+
+.bio {
+  margin: 30px 0;
+  font-size: 16px;
 }
