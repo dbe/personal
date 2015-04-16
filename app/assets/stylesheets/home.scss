@@ -2,8 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import url(http://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400);
+
 body {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "roboto, HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 200;
 }
 
 #main {
@@ -138,6 +144,11 @@ h1.crumb {
 
 #get-started a {
   background-color: #FF5722;
+}
+
+#cta {
+  border: none;
+  font-weight: 200;
 }
 
 
