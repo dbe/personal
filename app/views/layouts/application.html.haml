@@ -1,6 +1,7 @@
 !!!
 %html
   %head
+    = render :partial => 'mix_panel'
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
     %title= content_for?(:title) ? yield(:title) : 'Hi. I am Brian Ethier.'
     %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Hi. I am Brian Ethier.'}"}
@@ -10,9 +11,15 @@
   %body
     .container-fluid
       .row#main
-        .col-md-3
+        .col-md-3#left-nav
           = render 'layouts/left_nav'
         .col-md-9
           - if params[:first_nav] == 'experience'
             = render :partial => 'breadcrumb'
           = yield
+
+  :javascript
+    mixpanel.track('page viewed', {
+    'page name' : document.title,
+    'url' : window.location.pathname
+    });
