@@ -10,4 +10,8 @@ class HomeController < ApplicationController
       return render params[:third_nav]
     end
   end
+
+  def idle
+    render layout: false
+  end
 end
