@@ -11,6 +11,4 @@ class Tile
 
 
 
-
-window.Idle = window.Idle || {}
-window.Idle.Tile = Tile
+module.exports = Tile

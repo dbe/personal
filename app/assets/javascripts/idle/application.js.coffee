@@ -1,6 +1,8 @@
-#= require idle/idle
-
 console.log("in idle/application.coffee")
+
+#Tile = require('tile')
+
+#console.log(Tile)
 
 
 #window.Idle = window.Idle || {}
