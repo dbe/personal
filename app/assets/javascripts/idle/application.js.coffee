@@ -1,3 +1,5 @@
+#= require idle/idle.module
+
 console.log("in idle/application.coffee")
 
 #Tile = require('tile')
