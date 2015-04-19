@@ -10,6 +10,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'puma'
+gem 'sprockets-commonjs'
 
 group :development, :test do
   gem 'byebug'

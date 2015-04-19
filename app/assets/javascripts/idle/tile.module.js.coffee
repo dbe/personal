@@ -1,3 +1,5 @@
+console.log("In Tile.coffee")
+
 class Tile
   this.TYPES = {
     FLOOR : 0,
