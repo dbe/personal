@@ -9,6 +9,4 @@ class Tile
   constructor: (@type=Tile.TYPES.FLOOR) ->
     console.log("In tile constructor")
 
-
-
-#module.exports = Tile
+window.Idle.Tile = Tile
