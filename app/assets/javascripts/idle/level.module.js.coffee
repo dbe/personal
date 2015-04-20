@@ -1,7 +1,5 @@
 #= require idle/tile.module
 
-console.log("In level.coffee")
-
 class Level
   #Wall is equivalent to living cell in GoL
   WALL_CHANCE = 0.4
