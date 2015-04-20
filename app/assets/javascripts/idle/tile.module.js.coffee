@@ -6,7 +6,7 @@ class Tile
     WALL: 1
   }
 
-  constructor: (@type=Tile.TYPES.FLOOR) ->
+  constructor: (@type) ->
     console.log("In tile constructor")
 
 window.Idle.Tile = Tile
