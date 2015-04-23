@@ -12,9 +12,9 @@
   %body
     .container-fluid
       .row#main
-        .col-md-3#left-nav
+        .col-sm-3#left-nav
           = render 'layouts/left_nav'
-        .col-md-9
+        .col-sm-9
           - if params[:first_nav] == 'experience'
             = render :partial => 'breadcrumb'
           = yield

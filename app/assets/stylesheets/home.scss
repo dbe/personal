@@ -76,13 +76,19 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     position: relative;
     top: -5px;
-    height: 180px;
+    height: 210px;
     width: 1px;
     margin: 0 auto;
     z-index: -1;
     background-color: #ddd;
     background-color: rgba(0,0,0,.27);
     content: '';
+  }
+}
+
+@media (max-width: 992px) {
+  .career-logo::after {
+    height: 300px;
   }
 }
 
