@@ -18,10 +18,13 @@ class Level
   #draw the level given a context
   #Maybe, only if we want to couple rendering with the level object
 
+
+  #---- Private ----#
+
   generateTileMap = (width, height) ->
     seed = generateSeed(width, height)
 
-    #Do iterations
+    #TODO: Do iterations
 
     return seed
      
