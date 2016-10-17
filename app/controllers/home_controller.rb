@@ -14,4 +14,8 @@ class HomeController < ApplicationController
   def idle
     render layout: false
   end
+
+  def emerge
+    render layout: false
+  end
 end

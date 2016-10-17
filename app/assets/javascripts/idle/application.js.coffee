@@ -14,5 +14,5 @@ window.requestAnimationFrame(
       window.cgr = new Idle.CanvasGameRenderer(canvas, game)
       cgr.render()
     else
-      console.log("No game canvas detected. Aborting")
+      console.log("No game canvas detected for the idle game. Aborting")
 )
