@@ -1,8 +1,9 @@
 console.log("In emerge application js");
 
+var CONSTANTS = {stageWidth: 800, stageHeight: 600};
 var renderer;
 var stage;
-var fish;
+var fishes;
 var food;
 var velocityVectorGraphics;
 
@@ -10,7 +11,7 @@ setupRenderer();
 setupGraphics();
 
 function setupRenderer() {
-  renderer = PIXI.autoDetectRenderer(800, 600, {backgroundColor: 0x33BBFF});
+  renderer = PIXI.autoDetectRenderer(CONSTANTS['stageWidth'], CONSTANTS['stageHeight'], {backgroundColor: 0x33BBFF});
   document.body.appendChild(renderer.view);
   stage = new PIXI.Container();
 }
@@ -25,13 +26,18 @@ function setupGraphics() {
     .add("assets/emerge/food.png")
     .load(function() {
 
-      fish = new Fish();
-      fish.anchor.set(0.5, 0.5);
-      stage.addChild(fish);
+      fishes = [];
 
-      food = new Food(250, 250);
+      for(var i = 0; i < 10; i++) {
+        fishes.push(new Fish(Util.randomPoint()));
+      }
+
+      for(var i = 0; i < fishes.length; i++) {
+        stage.addChild(fishes[i]);
+      }
+
+      food = new Food(Util.randomPoint());
       stage.addChild(food);
-
 
       //Loading is all done, kick off animation
       animate();
@@ -44,13 +50,16 @@ function animate() {
 
   velocityVectorGraphics.clear();
 
-  fish.move();
+  for(var i = 0; i < fishes.length; i++) {
+    var fish = fishes[i];
+    fish.move(); 
 
-  if(Util.spriteCollide(fish, food)) {
-    console.log("Collide!");
-    stage.removeChild(food);
-    food = new Food(Math.random() * 800, Math.random() * 600);
-    stage.addChild(food);
+    if(Util.spriteCollide(fish, food)) {
+      console.log("Collide!");
+      stage.removeChild(food);
+      food = new Food(Util.randomPoint());
+      stage.addChild(food);
+    }
   }
 
   renderer.render(stage);
@@ -60,8 +69,12 @@ function animate() {
 //--------- Objects ----------//
 
 //Fish is a subclass of Sprite
-function Fish() {
+function Fish(initialLocation) {
   PIXI.Sprite.call(this, PIXI.loader.resources["assets/emerge/fish.png"].texture);
+
+  this.position = initialLocation ? initialLocation : new PIXI.Point(0, 0);
+
+  this.anchor.set(0.5, 0.5);
 
   var velocity = new Victor(0,0);
   var maxSpeed = 5;
@@ -119,11 +132,10 @@ Fish.prototype = Object.create(PIXI.Sprite.prototype);
 
 
 //Food is a subclass of PIXI.Sprite
-function Food(x, y) {
+function Food(initialLocation) {
   PIXI.Sprite.call(this, PIXI.loader.resources["assets/emerge/food.png"].texture);
 
-  this.x = x ? x : 0;
-  this.y = y ? y : 0;
+  this.position = initialLocation ? initialLocation : new PIXI.Point(0, 0);
 
   this.scale.set(0.05, 0.05);
   this.anchor.set(0.5, 0.5);
@@ -169,4 +181,8 @@ Util.spriteCollide = function(a, b) {
   var by = b.y - (bh / 2);
 
   return (ax < bx + bw) && (bx < ax + aw) && (ay < by + bh) && (by < ay + ah);
+}
+
+Util.randomPoint = function() {
+  return new PIXI.Point(Math.random() * CONSTANTS['stageWidth'], Math.random() * CONSTANTS['stageHeight']);
 }
