@@ -3,6 +3,7 @@ console.log("In emerge application js");
 var renderer;
 var stage;
 var fish;
+var food;
 var velocityVectorGraphics;
 
 setupRenderer();
@@ -21,10 +22,15 @@ function setupGraphics() {
 
   PIXI.loader
     .add("assets/emerge/fish.png")
+    .add("assets/emerge/food.png")
     .load(function() {
 
       fish = new Fish();
+      fish.anchor.set(0.5, 0.5);
       stage.addChild(fish);
+
+      food = new Food(250, 250);
+      stage.addChild(food);
 
 
       //Loading is all done, kick off animation
@@ -39,6 +45,8 @@ function animate() {
   velocityVectorGraphics.clear();
 
   fish.move();
+
+  console.log("Collide?: ", Util.spriteCollide(fish, food));
 
   renderer.render(stage);
 }
@@ -103,6 +111,20 @@ function Fish() {
 
 Fish.prototype = Object.create(PIXI.Sprite.prototype);
 
+
+//Food is a subclass of PIXI.Sprite
+function Food(x, y) {
+  PIXI.Sprite.call(this, PIXI.loader.resources["assets/emerge/food.png"].texture);
+
+  this.x = x ? x : 0;
+  this.y = y ? y : 0;
+
+  this.scale.set(0.05, 0.05);
+  this.anchor.set(0.5, 0.5);
+}
+
+Food.prototype = Object.create(PIXI.Sprite.prototype);
+
 window.Util = {}
 
 //Returns a victor vector from PIXI.Point a to PIXI.Point b
@@ -119,4 +141,21 @@ Util.calculateUnitVector = function(a, b) {
 //Just returns a PIXI.Point where the mouse is currently
 Util.mouseDestination = function() {
   return renderer.plugins.interaction.mouse.global;
+}
+
+//Calculates whether or not 2 PIXI.Sprites collide
+//TODO: Might want to try out circular detection or another algorithm to avoid the re-originating the rectangles each calculation
+Util.spriteCollide = function(a, b) {
+  var aw = a.width;
+  var ah = a.height;
+  var bw = b.width;
+  var bh = b.height;
+
+  //Rearranging 'x' and 'y' to be the top left side of the box rather than the center.
+  var ax = a.x - (aw / 2);
+  var ay = a.y - (ah / 2);
+  var bx = b.x - (bw / 2);
+  var by = b.y - (bh / 2);
+
+  return (ax < bx + bw) && (bx < ax + aw) && (ay < by + bh) && (by < ay + ah);
 }
