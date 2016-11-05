@@ -46,7 +46,12 @@ function animate() {
 
   fish.move();
 
-  console.log("Collide?: ", Util.spriteCollide(fish, food));
+  if(Util.spriteCollide(fish, food)) {
+    console.log("Collide!");
+    stage.removeChild(food);
+    food = new Food(Math.random() * 800, Math.random() * 600);
+    stage.addChild(food);
+  }
 
   renderer.render(stage);
 }
@@ -61,7 +66,8 @@ function Fish() {
   var velocity = new Victor(0,0);
   var maxSpeed = 5;
   var maxForce = 0.1;
-  var calculateDestination = Util.mouseDestination;
+  //var calculateDestination = Util.mouseDestination;
+  var calculateDestination = Util.spriteDestination;
   var that = this;
 
   //-------- Public Functions -------//
@@ -76,7 +82,7 @@ function Fish() {
   //-------- Private Functions ------//
 
   function updateVelocity() {
-    var destination = calculateDestination();
+    var destination = calculateDestination(food);
 
     var desired = Util.calculateUnitVector(that.position, destination);
     desired.multiplyScalar(maxSpeed);
@@ -139,8 +145,13 @@ Util.calculateUnitVector = function(a, b) {
 }
 
 //Just returns a PIXI.Point where the mouse is currently
+//TODO: Make this a more clear interface
 Util.mouseDestination = function() {
   return renderer.plugins.interaction.mouse.global;
+}
+
+Util.spriteDestination = function(goal) {
+  return new PIXI.Point(goal.x, goal.y);
 }
 
 //Calculates whether or not 2 PIXI.Sprites collide
