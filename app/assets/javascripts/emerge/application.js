@@ -29,14 +29,14 @@ function setupGraphics() {
       fishes = [];
 
       for(var i = 0; i < 20; i++) {
-        fishes.push(new Fish(Util.randomPoint()));
+        fishes.push(new Fish());
       }
 
       for(var i = 0; i < fishes.length; i++) {
         stage.addChild(fishes[i]);
       }
 
-      food = new Food(Util.randomPoint());
+      food = new Food();
       stage.addChild(food);
 
       //Loading is all done, kick off animation
@@ -69,10 +69,10 @@ function animate() {
 //--------- Objects ----------//
 
 //Fish is a subclass of Sprite
-function Fish(initialLocation) {
+function Fish() {
   PIXI.Sprite.call(this, PIXI.loader.resources["assets/emerge/fish.png"].texture);
 
-  this.position = initialLocation ? initialLocation : new PIXI.Point(0, 0);
+  this.position = Util.randomPoint();
 
   this.anchor.set(0.5, 0.5);
 
@@ -133,10 +133,10 @@ Fish.prototype = Object.create(PIXI.Sprite.prototype);
 
 
 //Food is a subclass of PIXI.Sprite
-function Food(initialLocation) {
+function Food() {
   PIXI.Sprite.call(this, PIXI.loader.resources["assets/emerge/food.png"].texture);
 
-  this.position = initialLocation ? initialLocation : new PIXI.Point(0, 0);
+  this.position = Util.randomPoint();
 
   this.scale.set(0.05, 0.05);
   this.anchor.set(0.5, 0.5);
