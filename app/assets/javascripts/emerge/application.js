@@ -28,7 +28,7 @@ function setupGraphics() {
 
       fishes = [];
 
-      for(var i = 0; i < 2; i++) {
+      for(var i = 0; i < 20; i++) {
         fishes.push(new Fish(Util.randomPoint()));
       }
 
@@ -51,7 +51,6 @@ function animate() {
   velocityVectorGraphics.clear();
 
   for(var i = 0; i < fishes.length; i++) {
-    console.log("In move. i: ", i);
     var fish = fishes[i];
     fish.move(); 
 
@@ -88,16 +87,7 @@ function Fish(initialLocation) {
   //-------- Public Functions -------//
 
   this.move = function() {
-    console.log("this.x: ", this.x);
-    console.log("this.y: ", this.y);
-
-    console.log("vel beofre this.velocity.x: ", this.velocity.x);
-    console.log("vel beofre this.velocity.y: ", this.velocity.y);
-
     updateVelocity();
-
-    console.log("vel after this.velocity.x: ", this.velocity.x);
-    console.log("vel after this.velocity.y: ", this.velocity.y);
 
     this.x += this.velocity.x;
     this.y += this.velocity.y;
@@ -108,30 +98,17 @@ function Fish(initialLocation) {
   function updateVelocity() {
     var destination = that.calculateDestination(food);
 
-    console.log("desintation: ", destination);
-
     var desired = Util.calculateUnitVector(that.position, destination);
-
-    console.log("desirired before multiply: ", desired);
-
     desired.multiplyScalar(that.maxSpeed);
 
-    console.log("desirired after multiply: ", desired);
-
     var steering = desired.clone().subtract(that.velocity);
-
-    console.log("steering: ", steering);
 
     //If steering exceeds max force
     if(steering.magnitude() > that.maxForce) {
       steering.divideScalar(steering.magnitude() / that.maxForce);
     }
 
-    console.log("velocity before applying steering: ", that.velocity);
-
     that.velocity = steering.clone().add(that.velocity);
-
-    console.log("velocity after applying steering: ", that.velocity);
 
     //TODO: Make that optional based on debug settings
     drawVelocities(that.velocity, desired, steering, that.position);
