@@ -28,7 +28,7 @@ function setupGraphics() {
 
       fishes = [];
 
-      for(var i = 0; i < 10; i++) {
+      for(var i = 0; i < 2; i++) {
         fishes.push(new Fish(Util.randomPoint()));
       }
 
@@ -51,11 +51,12 @@ function animate() {
   velocityVectorGraphics.clear();
 
   for(var i = 0; i < fishes.length; i++) {
+    console.log("In move. i: ", i);
     var fish = fishes[i];
     fish.move(); 
 
+    //TODO: Make this more clean. Seems prone for bugs
     if(Util.spriteCollide(fish, food)) {
-      console.log("Collide!");
       stage.removeChild(food);
       food = new Food(Util.randomPoint());
       stage.addChild(food);
@@ -76,41 +77,64 @@ function Fish(initialLocation) {
 
   this.anchor.set(0.5, 0.5);
 
-  var velocity = new Victor(0,0);
-  var maxSpeed = 5;
-  var maxForce = 0.1;
+  this.velocity = new Victor(0,0);
+  this.maxSpeed = 5;
+  this.maxForce = 0.1;
   //var calculateDestination = Util.mouseDestination;
-  var calculateDestination = Util.spriteDestination;
+  this.calculateDestination = Util.spriteDestination;
   var that = this;
+
 
   //-------- Public Functions -------//
 
-  Fish.prototype.move = function() {
+  this.move = function() {
+    console.log("this.x: ", this.x);
+    console.log("this.y: ", this.y);
+
+    console.log("vel beofre this.velocity.x: ", this.velocity.x);
+    console.log("vel beofre this.velocity.y: ", this.velocity.y);
+
     updateVelocity();
 
-    this.x += velocity.x;
-    this.y += velocity.y;
+    console.log("vel after this.velocity.x: ", this.velocity.x);
+    console.log("vel after this.velocity.y: ", this.velocity.y);
+
+    this.x += this.velocity.x;
+    this.y += this.velocity.y;
   }
 
   //-------- Private Functions ------//
 
   function updateVelocity() {
-    var destination = calculateDestination(food);
+    var destination = that.calculateDestination(food);
+
+    console.log("desintation: ", destination);
 
     var desired = Util.calculateUnitVector(that.position, destination);
-    desired.multiplyScalar(maxSpeed);
 
-    var steering = desired.clone().subtract(velocity);
+    console.log("desirired before multiply: ", desired);
+
+    desired.multiplyScalar(that.maxSpeed);
+
+    console.log("desirired after multiply: ", desired);
+
+    var steering = desired.clone().subtract(that.velocity);
+
+    console.log("steering: ", steering);
 
     //If steering exceeds max force
-    if(steering.magnitude() > maxForce) {
-      steering.divideScalar(steering.magnitude() / maxForce);
+    if(steering.magnitude() > that.maxForce) {
+      steering.divideScalar(steering.magnitude() / that.maxForce);
     }
 
-    velocity = steering.clone().add(velocity);
+    console.log("velocity before applying steering: ", that.velocity);
+
+    that.velocity = steering.clone().add(that.velocity);
+
+    console.log("velocity after applying steering: ", that.velocity);
 
     //TODO: Make that optional based on debug settings
-    drawVelocities(velocity, desired, steering, that.position);
+    drawVelocities(that.velocity, desired, steering, that.position);
   }
   
   function drawVelocities(current, desired, steering, origin) {
