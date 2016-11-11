@@ -29,7 +29,7 @@ function setupGraphics() {
       fishes = [];
 
       for(var i = 0; i < 20; i++) {
-        fishes.push(new Fish());
+        fishes.push(new Herbavore());
       }
 
       for(var i = 0; i < fishes.length; i++) {
@@ -131,6 +131,11 @@ function Fish() {
 
 Fish.prototype = Object.create(PIXI.Sprite.prototype);
 
+function Herbavore() {
+  Fish.call(this);
+}
+
+Herbavore.prototype = Object.create(Fish.prototype);
 
 //Food is a subclass of PIXI.Sprite
 function Food() {
