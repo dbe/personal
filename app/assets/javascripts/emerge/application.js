@@ -29,7 +29,11 @@ function setupGraphics() {
       fishes = [];
 
       for(var i = 0; i < 20; i++) {
-        fishes.push(new Herbavore());
+        if(Math.random() > 0.5) {
+          fishes.push(new Herbavore());
+        } else {
+          fishes.push(new Mouseavore());
+        }
       }
 
       for(var i = 0; i < fishes.length; i++) {
@@ -79,8 +83,6 @@ function Fish() {
   this.velocity = new Victor(0,0);
   this.maxSpeed = 5;
   this.maxForce = 0.1;
-  //var calculateDestination = Util.mouseDestination;
-  this.calculateDestination = Util.spriteDestination;
   var that = this;
 
 
@@ -96,7 +98,7 @@ function Fish() {
   //-------- Private Functions ------//
 
   function updateVelocity() {
-    var destination = that.calculateDestination(food);
+    var destination = that.calculateDestination();
 
     var desired = Util.calculateUnitVector(that.position, destination);
     desired.multiplyScalar(that.maxSpeed);
@@ -133,9 +135,18 @@ Fish.prototype = Object.create(PIXI.Sprite.prototype);
 
 function Herbavore() {
   Fish.call(this);
+  this.calculateDestination = Util.foodDestination;
 }
 
 Herbavore.prototype = Object.create(Fish.prototype);
+
+//Joke object which eats the mouse pointer
+function Mouseavore() {
+  Fish.call(this);
+  this.calculateDestination = Util.mouseDestination;
+}
+
+Mouseavore.prototype = Object.create(Fish.prototype);
 
 //Food is a subclass of PIXI.Sprite
 function Food() {
@@ -166,6 +177,10 @@ Util.calculateUnitVector = function(a, b) {
 //TODO: Make this a more clear interface
 Util.mouseDestination = function() {
   return renderer.plugins.interaction.mouse.global;
+}
+
+Util.foodDestination = function() {
+  return Util.spriteDestination(food);
 }
 
 Util.spriteDestination = function(goal) {
