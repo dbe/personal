@@ -1,6 +1,7 @@
 #=require idle/idle.module
 #=require idle/level.module
 #=require idle/game.module
+#=require idle/canvas_game_renderer.module
 
 window.requestAnimationFrame(
   ->
