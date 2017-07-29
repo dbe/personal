@@ -68,26 +68,28 @@
 /* 1 */
 /***/ (function(module, exports) {
 
-var WIDTH = 1200;
-var HEIGHT = 600;
+new p5(p => {
+  var WIDTH = 1200;
+  var HEIGHT = 600;
 
-var x, y;
+  var x, y;
 
-function setup() {
-  createCanvas(WIDTH, HEIGHT);
-  x = random(WIDTH);
-  y = random(HEIGHT);
-}
+  p.setup = function() {
+    p.createCanvas(WIDTH, HEIGHT);
+    x = p.random(WIDTH);
+    y = p.random(HEIGHT);
+  }
 
-function draw() {
-  ellipse(x, y, 80, 80);
-  mutateXY()
-}
+  p.draw = function() {
+    p.ellipse(x, y, 80, 80);
+    mutateXY()
+  }
 
-function mutateXY() {
-  x += random(-10, 10);
-  y += random(-5, 5);
-}
+  function mutateXY() {
+    x += p.random(-10, 10);
+    y += p.random(-5, 5);
+  }
+})
 
 
 /***/ })

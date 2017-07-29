@@ -67,29 +67,8 @@
 /* 0 */
 /***/ (function(module, exports) {
 
-// var s = function(p) {
-//   p.setup = function() {
-//     p.createCanvas(1200, 600);
-//   }
-//
-//   p.draw = function() {
-//     p.ellipse(p.random(1200), p.random(600), 80, 80);
-//   }
-// }
-//
-// new p5(s);
-
-// function setup() {
-//   createCanvas(1200, 600);
-// }
-//
-// function draw() {
-//   p.ellipse(random(1200), random(600, 80, 80))
-// }
-
-
 new p5(p => {
-  
+
   p.setup = function() {
     p.createCanvas(1200, 600);
   }
@@ -97,7 +76,6 @@ new p5(p => {
   p.draw = function() {
     p.ellipse(p.random(1200), p.random(600), 80, 80);
   }
-
 });
 
 
