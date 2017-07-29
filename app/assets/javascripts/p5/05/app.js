@@ -76,7 +76,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var guy;
 var mobs = [];
 
-function setup() {
+window.setup = function() {
   createCanvas(windowWidth, windowHeight);
   ellipseMode(RADIUS);
 
@@ -87,7 +87,7 @@ function setup() {
   }
 }
 
-function draw() {
+window.draw = function() {
   clear();
   guy.move();
   guy.draw();
@@ -98,7 +98,7 @@ function draw() {
   });
 }
 
-function mouseClicked() {
+window.mouseClicked = function() {
   var newMobs = [];
 
   mobs.forEach(function(mob, i) {
