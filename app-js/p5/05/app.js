@@ -1,3 +1,5 @@
+import Mob from './Mob';
+
 var guy;
 var mobs = [];
 
@@ -65,25 +67,5 @@ function Guy() {
   this.draw = function() {
     ellipse(this.p.x, this.p.y, 20, 20);
     line(this.p.x, this.p.y, mouseX, mouseY);
-  }
-}
-
-function Mob() {
-  this.p = createVector(random(displayWidth), random(displayHeight));
-  this.speed = 1;
-  this.radius = 50;
-
-  this.move = function(target) {
-    var desired = p5.Vector.sub(target.p, this.p);
-    this.p.add(desired.setMag(this.speed));
-  }
-
-  this.draw = function() {
-    ellipse(this.p.x, this.p.y, this.radius, this.radius);
-  }
-
-  this.isCollision = function(p) {
-    console.log("Dist: ", this.p.dist(p))
-    return this.p.dist(p) <= this.radius;
   }
 }
