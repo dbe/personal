@@ -17,4 +17,3 @@
 //= require jquery.slides.min.js
 //= require pixi.min.js
 //= require victor.min.js
-//= require_tree .

@@ -1,0 +1,10 @@
+- if @demo.nil?
+  %h1
+    P5.js demos
+  %ul
+    - @demos.each_with_index do |demo, i|
+      %ul
+        = link_to i + 1, "p5/#{demo}"
+- else
+  = javascript_include_tag 'http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.js'
+  = javascript_include_tag "p5/#{@demo}.js"

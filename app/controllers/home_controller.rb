@@ -18,4 +18,16 @@ class HomeController < ApplicationController
   def emerge
     render layout: false
   end
+
+  def p5
+    @demo = params[:demo]
+    @demos = [
+      '01_infinity_circles',
+      '02_a_random_walk',
+      '03_single_dropper',
+      '04_mouse_dropper',
+      '05'
+    ]
+    render layout: false
+  end
 end
