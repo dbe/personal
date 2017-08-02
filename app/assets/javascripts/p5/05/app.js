@@ -73,27 +73,28 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Mob__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Zergling__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Guy__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mob__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Zergling__ = __webpack_require__(6);
+
 
 
 
 var guy;
 var mobs = [];
-var gameOver = false;
 
 window.setup = function() {
   createCanvas(windowWidth, windowHeight);
   ellipseMode(RADIUS);
 
-  guy = new Guy();
+  guy = new __WEBPACK_IMPORTED_MODULE_0__Guy__["a" /* default */]();
 
   for(var i = 0; i < 30; i++) {
-    mobs.push(new __WEBPACK_IMPORTED_MODULE_1__Zergling__["a" /* default */]());
+    mobs.push(new __WEBPACK_IMPORTED_MODULE_2__Zergling__["a" /* default */]());
   }
 
   for(var i = 0; i < 60; i++) {
-    mobs.push(new __WEBPACK_IMPORTED_MODULE_0__Mob__["a" /* default */]());
+    mobs.push(new __WEBPACK_IMPORTED_MODULE_1__Mob__["a" /* default */]());
   }
 }
 
@@ -133,35 +134,6 @@ function isGameOver() {
   return mobs.some(function(mob) {
     return mob.isCollision(guy.p);
   });
-}
-
-function Guy() {
-  this.p = createVector(100, 100);
-  this.speed = 5;
-
-  this.move = function() {
-    var desiredVelocity = createVector(0, 0);
-
-    if(keyIsDown(65)) {
-      desiredVelocity.x--;
-    }
-    if(keyIsDown(68)) {
-      desiredVelocity.x++;
-    }
-    if(keyIsDown(87)) {
-      desiredVelocity.y--;
-    }
-    if(keyIsDown(83)) {
-      desiredVelocity.y++;
-    }
-
-    this.p.add(desiredVelocity.setMag(this.speed));
-  }
-
-  this.draw = function() {
-    ellipse(this.p.x, this.p.y, 20, 20);
-    line(this.p.x, this.p.y, mouseX, mouseY);
-  }
 }
 
 
@@ -213,6 +185,45 @@ class Zergling extends __WEBPACK_IMPORTED_MODULE_0__Mob__["a" /* default */] {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Zergling);
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Guy {
+  constructor() {
+    this.p = createVector(100, 100);
+    this.speed = 5;
+  }
+
+  move() {
+    var desiredVelocity = createVector(0, 0);
+
+    if(keyIsDown(65)) {
+      desiredVelocity.x--;
+    }
+    if(keyIsDown(68)) {
+      desiredVelocity.x++;
+    }
+    if(keyIsDown(87)) {
+      desiredVelocity.y--;
+    }
+    if(keyIsDown(83)) {
+      desiredVelocity.y++;
+    }
+
+    this.p.add(desiredVelocity.setMag(this.speed));
+  }
+
+  draw() {
+    ellipse(this.p.x, this.p.y, 20, 20);
+    line(this.p.x, this.p.y, mouseX, mouseY);
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Guy);
 
 
 /***/ })

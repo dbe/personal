@@ -1,9 +1,9 @@
+import Guy from './Guy';
 import Mob from './Mob';
 import Zergling from './Zergling';
 
 var guy;
 var mobs = [];
-var gameOver = false;
 
 window.setup = function() {
   createCanvas(windowWidth, windowHeight);
@@ -56,33 +56,4 @@ function isGameOver() {
   return mobs.some(function(mob) {
     return mob.isCollision(guy.p);
   });
-}
-
-function Guy() {
-  this.p = createVector(100, 100);
-  this.speed = 5;
-
-  this.move = function() {
-    var desiredVelocity = createVector(0, 0);
-
-    if(keyIsDown(65)) {
-      desiredVelocity.x--;
-    }
-    if(keyIsDown(68)) {
-      desiredVelocity.x++;
-    }
-    if(keyIsDown(87)) {
-      desiredVelocity.y--;
-    }
-    if(keyIsDown(83)) {
-      desiredVelocity.y++;
-    }
-
-    this.p.add(desiredVelocity.setMag(this.speed));
-  }
-
-  this.draw = function() {
-    ellipse(this.p.x, this.p.y, 20, 20);
-    line(this.p.x, this.p.y, mouseX, mouseY);
-  }
 }
