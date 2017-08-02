@@ -1,8 +1,8 @@
 class Mob {
-  constructor() {
+  constructor(speed = 1, radius = 50) {
     this.p = createVector(random(displayWidth), random(displayHeight));
-    this.speed = 1;
-    this.radius = 50;
+    this.speed = speed;
+    this.radius = radius;
   }
 
   move(target) {

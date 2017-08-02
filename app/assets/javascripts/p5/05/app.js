@@ -63,18 +63,24 @@
 /******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 4:
+/******/ ([
+/* 0 */,
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Mob__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Zergling__ = __webpack_require__(6);
+
 
 
 var guy;
 var mobs = [];
+var gameOver = false;
 
 window.setup = function() {
   createCanvas(windowWidth, windowHeight);
@@ -83,19 +89,24 @@ window.setup = function() {
   guy = new Guy();
 
   for(var i = 0; i < 100; i++) {
-    mobs.push(new __WEBPACK_IMPORTED_MODULE_0__Mob__["a" /* default */]());
+    mobs.push(new __WEBPACK_IMPORTED_MODULE_1__Zergling__["a" /* default */]());
   }
 }
 
 window.draw = function() {
-  clear();
-  guy.move();
-  guy.draw();
+  //TODO: Make this game over logic better
+  if(isGameOver()) {
+    background('red');
+  } else  {
+    clear();
+    guy.move();
+    guy.draw();
 
-  mobs.forEach(function(mob) {
-    mob.move(guy);
-    mob.draw();
-  });
+    mobs.forEach(function(mob) {
+      mob.move(guy);
+      mob.draw();
+    });
+  }
 }
 
 window.mouseClicked = function() {
@@ -112,6 +123,12 @@ window.mouseClicked = function() {
 
 function destroyMob(i) {
   mobs.splice(i, 1);
+}
+
+function isGameOver() {
+  return mobs.some(function(mob) {
+    return mob.isCollision(guy.p);
+  });
 }
 
 function Guy() {
@@ -145,16 +162,15 @@ function Guy() {
 
 
 /***/ }),
-
-/***/ 5:
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 class Mob {
-  constructor() {
+  constructor(speed = 1, radius = 50) {
     this.p = createVector(random(displayWidth), random(displayHeight));
-    this.speed = 1;
-    this.radius = 50;
+    this.speed = speed;
+    this.radius = radius;
   }
 
   move(target) {
@@ -174,6 +190,22 @@ class Mob {
 /* harmony default export */ __webpack_exports__["a"] = (Mob);
 
 
-/***/ })
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/******/ });
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Mob__ = __webpack_require__(5);
+
+
+class Zergling extends __WEBPACK_IMPORTED_MODULE_0__Mob__["a" /* default */] {
+  constructor() {
+    super(3, 20);
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Zergling);
+
+
+/***/ })
+/******/ ]);

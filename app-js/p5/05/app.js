@@ -1,7 +1,9 @@
 import Mob from './Mob';
+import Zergling from './Zergling';
 
 var guy;
 var mobs = [];
+var gameOver = false;
 
 window.setup = function() {
   createCanvas(windowWidth, windowHeight);
@@ -10,19 +12,24 @@ window.setup = function() {
   guy = new Guy();
 
   for(var i = 0; i < 100; i++) {
-    mobs.push(new Mob());
+    mobs.push(new Zergling());
   }
 }
 
 window.draw = function() {
-  clear();
-  guy.move();
-  guy.draw();
+  //TODO: Make this game over logic better
+  if(isGameOver()) {
+    background('red');
+  } else  {
+    clear();
+    guy.move();
+    guy.draw();
 
-  mobs.forEach(function(mob) {
-    mob.move(guy);
-    mob.draw();
-  });
+    mobs.forEach(function(mob) {
+      mob.move(guy);
+      mob.draw();
+    });
+  }
 }
 
 window.mouseClicked = function() {
@@ -39,6 +46,12 @@ window.mouseClicked = function() {
 
 function destroyMob(i) {
   mobs.splice(i, 1);
+}
+
+function isGameOver() {
+  return mobs.some(function(mob) {
+    return mob.isCollision(guy.p);
+  });
 }
 
 function Guy() {
