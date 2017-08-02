@@ -1,6 +1,6 @@
 class Mob {
   constructor(speed = 1, radius = 50) {
-    this.p = createVector(random(displayWidth), random(displayHeight));
+    this.p = createVector(200 + random(displayWidth - 200), 200 + random(displayHeight - 200));
     this.speed = speed;
     this.radius = radius;
   }

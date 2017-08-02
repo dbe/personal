@@ -11,8 +11,12 @@ window.setup = function() {
 
   guy = new Guy();
 
-  for(var i = 0; i < 100; i++) {
+  for(var i = 0; i < 30; i++) {
     mobs.push(new Zergling());
+  }
+
+  for(var i = 0; i < 60; i++) {
+    mobs.push(new Mob());
   }
 }
 
@@ -55,7 +59,7 @@ function isGameOver() {
 }
 
 function Guy() {
-  this.p = createVector(100, 580);
+  this.p = createVector(100, 100);
   this.speed = 5;
 
   this.move = function() {

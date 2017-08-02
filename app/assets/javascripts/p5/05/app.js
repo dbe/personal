@@ -88,8 +88,12 @@ window.setup = function() {
 
   guy = new Guy();
 
-  for(var i = 0; i < 100; i++) {
+  for(var i = 0; i < 30; i++) {
     mobs.push(new __WEBPACK_IMPORTED_MODULE_1__Zergling__["a" /* default */]());
+  }
+
+  for(var i = 0; i < 60; i++) {
+    mobs.push(new __WEBPACK_IMPORTED_MODULE_0__Mob__["a" /* default */]());
   }
 }
 
@@ -132,7 +136,7 @@ function isGameOver() {
 }
 
 function Guy() {
-  this.p = createVector(100, 580);
+  this.p = createVector(100, 100);
   this.speed = 5;
 
   this.move = function() {
@@ -168,7 +172,7 @@ function Guy() {
 "use strict";
 class Mob {
   constructor(speed = 1, radius = 50) {
-    this.p = createVector(random(displayWidth), random(displayHeight));
+    this.p = createVector(200 + random(displayWidth - 200), 200 + random(displayHeight - 200));
     this.speed = speed;
     this.radius = radius;
   }
@@ -201,6 +205,10 @@ class Mob {
 class Zergling extends __WEBPACK_IMPORTED_MODULE_0__Mob__["a" /* default */] {
   constructor() {
     super(3, 20);
+  }
+
+  draw() {
+    rect(this.p.x, this.p.y, 10, 10);
   }
 }
 
