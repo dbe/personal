@@ -10,5 +10,6 @@ window.setup = function() {
 }
 
 window.draw = function() {
+  guy.move();
   guy.draw();
 }
