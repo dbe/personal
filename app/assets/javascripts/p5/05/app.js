@@ -60,22 +60,51 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Mob {
+  constructor(speed = 1, radius = 50) {
+    this.p = createVector(200 + random(displayWidth - 200), 200 + random(displayHeight - 200));
+    this.speed = speed;
+    this.radius = radius;
+  }
+
+  move(target) {
+    var desired = p5.Vector.sub(target.p, this.p);
+    this.p.add(desired.setMag(this.speed));
+  }
+
+  draw() {
+    ellipse(this.p.x, this.p.y, this.radius, this.radius);
+  }
+
+  isCollision(p) {
+    return this.p.dist(p) <= this.radius;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Mob);
+
+
+/***/ }),
 /* 1 */,
 /* 2 */,
 /* 3 */,
-/* 4 */
+/* 4 */,
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Guy__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mob__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Zergling__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Guy__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Mob__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Zergling__ = __webpack_require__(7);
 
 
 
@@ -138,57 +167,7 @@ function isGameOver() {
 
 
 /***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Mob {
-  constructor(speed = 1, radius = 50) {
-    this.p = createVector(200 + random(displayWidth - 200), 200 + random(displayHeight - 200));
-    this.speed = speed;
-    this.radius = radius;
-  }
-
-  move(target) {
-    var desired = p5.Vector.sub(target.p, this.p);
-    this.p.add(desired.setMag(this.speed));
-  }
-
-  draw() {
-    ellipse(this.p.x, this.p.y, this.radius, this.radius);
-  }
-
-  isCollision(p) {
-    return this.p.dist(p) <= this.radius;
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Mob);
-
-
-/***/ }),
 /* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Mob__ = __webpack_require__(5);
-
-
-class Zergling extends __WEBPACK_IMPORTED_MODULE_0__Mob__["a" /* default */] {
-  constructor() {
-    super(3, 20);
-  }
-
-  draw() {
-    rect(this.p.x, this.p.y, 10, 10);
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Zergling);
-
-
-/***/ }),
-/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -224,6 +203,27 @@ class Guy {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Guy);
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Mob__ = __webpack_require__(0);
+
+
+class Zergling extends __WEBPACK_IMPORTED_MODULE_0__Mob__["a" /* default */] {
+  constructor() {
+    super(3, 20);
+  }
+
+  draw() {
+    rect(this.p.x, this.p.y, 10, 10);
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Zergling);
 
 
 /***/ })

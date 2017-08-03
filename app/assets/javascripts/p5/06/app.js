@@ -60,38 +60,92 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
-/******/ ({
+/******/ ([
+/* 0 */,
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/***/ 2:
-/***/ (function(module, exports) {
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Guy__ = __webpack_require__(9);
 
-new p5(p => {
-  var WIDTH = 1200;
-  var HEIGHT = 600;
 
-  var x, y;
+var guy;
 
-  p.setup = function() {
-    p.createCanvas(WIDTH, HEIGHT);
-    x = p.random(WIDTH);
-    y = p.random(HEIGHT);
+window.setup = function() {
+  createCanvas(windowWidth, windowHeight);
+  ellipseMode(RADIUS);
+
+  guy = new __WEBPACK_IMPORTED_MODULE_0__Guy__["a" /* default */](createVector(100, 100));
+}
+
+window.draw = function() {
+  guy.draw();
+}
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CollidableSphere__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DrawableSphere__ = __webpack_require__(11);
+
+
+
+class Guy {
+  constructor(p, speed = 5, radius = 10) {
+    this.p = p;
+    this.speed = speed;
+    this.radius = radius;
   }
+}
 
-  p.draw = function() {
-    p.ellipse(x, y, 80, 80);
-    mutateXY()
-  }
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1__DrawableSphere__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_0__CollidableSphere__["a" /* default */])(Guy)));
 
-  function mutateXY() {
-    x += p.random(-10, 10);
-    y += p.random(-5, 5);
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const CollidableSphere = (superclass) => {
+  return class extends superclass {
+    isCollision(collidable) {
+      return this.p.dist(collidable.p) < Math.min(this.radius, collidable.radius);
+    }
   }
-})
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (CollidableSphere);
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const DrawableSphere = (superclass) => {
+  return class extends superclass {
+    draw() {
+      ellipse(this.p.x, this.p.y, this.radius, this.radius);
+    }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (DrawableSphere);
 
 
 /***/ })
-
-/******/ });
+/******/ ]);

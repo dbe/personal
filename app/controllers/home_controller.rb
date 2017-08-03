@@ -26,7 +26,8 @@ class HomeController < ApplicationController
       '02_a_random_walk',
       '03_single_dropper',
       '04_mouse_dropper',
-      '05'
+      '05',
+      '06'
     ]
     render layout: false
   end
