@@ -13,14 +13,13 @@ window.setup = function() {
   initShrines();
 }
 
-window.mouseClicked = function() {
-  guy.applyBuff(new Buff('speed', 20, 50));
-}
-
 window.draw = function() {
+  clear();
+
   shrines = shrines.filter(shrine => {
     if(guy.isCollision(shrine)) {
-      console.log("Hit shrine");
+      guy.applyBuff(shrine.buff);
+      return false;
     }
 
     shrine.draw();
@@ -33,6 +32,9 @@ window.draw = function() {
 
 function initShrines(count=10) {
   for(let i = 0; i < count; i++) {
-    shrines.push(new BuffShrine(createVector(random(windowWidth), random(windowHeight))));
+    let speedBuff = new Buff('speed', 5, 100);
+    let p = createVector(random(windowWidth), random(windowHeight));
+
+    shrines.push(new BuffShrine(p, speedBuff));
   }
 }

@@ -3,10 +3,11 @@ import CollidableSphere from './CollidableSphere';
 import DrawableSphere from './DrawableSphere';
 
 class BuffShrine extends CollidableSphere(DrawableSphere(Object)) {
-  constructor(p) {
+  constructor(p, buff) {
     super(...arguments);
-    
+
     this.p = p;
+    this.buff = buff;
     this.radius = 30;
   }
 }

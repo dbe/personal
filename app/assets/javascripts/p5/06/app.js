@@ -95,14 +95,13 @@ window.setup = function() {
   initShrines();
 }
 
-window.mouseClicked = function() {
-  guy.applyBuff(new __WEBPACK_IMPORTED_MODULE_0__Buff__["a" /* default */]('speed', 20, 50));
-}
-
 window.draw = function() {
+  clear();
+
   shrines = shrines.filter(shrine => {
     if(guy.isCollision(shrine)) {
-      console.log("Hit shrine");
+      guy.applyBuff(shrine.buff);
+      return false;
     }
 
     shrine.draw();
@@ -115,7 +114,10 @@ window.draw = function() {
 
 function initShrines(count=10) {
   for(let i = 0; i < count; i++) {
-    shrines.push(new __WEBPACK_IMPORTED_MODULE_1__BuffShrine__["a" /* default */](createVector(random(windowWidth), random(windowHeight))));
+    let speedBuff = new __WEBPACK_IMPORTED_MODULE_0__Buff__["a" /* default */]('speed', 5, 100);
+    let p = createVector(random(windowWidth), random(windowHeight));
+
+    shrines.push(new __WEBPACK_IMPORTED_MODULE_1__BuffShrine__["a" /* default */](p, speedBuff));
   }
 }
 
@@ -286,10 +288,11 @@ const Buffable = (superclass) => {
 
 
 class BuffShrine extends Object(__WEBPACK_IMPORTED_MODULE_1__CollidableSphere__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_2__DrawableSphere__["a" /* default */])(Object)) {
-  constructor(p) {
+  constructor(p, buff) {
     super(...arguments);
-    
+
     this.p = p;
+    this.buff = buff;
     this.radius = 30;
   }
 }
