@@ -77,27 +77,46 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Guy__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Buff__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Buff__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BuffShrine__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Guy__ = __webpack_require__(9);
+
 
 
 
 var guy;
+var shrines = [];
 
 window.setup = function() {
   createCanvas(windowWidth, windowHeight);
   ellipseMode(RADIUS);
 
-  guy = new __WEBPACK_IMPORTED_MODULE_0__Guy__["a" /* default */](createVector(100, 100));
+  guy = new __WEBPACK_IMPORTED_MODULE_2__Guy__["a" /* default */](createVector(100, 100));
+  initShrines();
 }
 
 window.mouseClicked = function() {
-  guy.applyBuff(new __WEBPACK_IMPORTED_MODULE_1__Buff__["a" /* default */]('speed', 20, 50));
+  guy.applyBuff(new __WEBPACK_IMPORTED_MODULE_0__Buff__["a" /* default */]('speed', 20, 50));
 }
 
 window.draw = function() {
+  shrines = shrines.filter(shrine => {
+    if(guy.isCollision(shrine)) {
+      console.log("Hit shrine");
+    }
+
+    shrine.draw();
+    return true;
+  });
+
   guy.update();
   guy.draw();
+}
+
+function initShrines(count=10) {
+  for(let i = 0; i < count; i++) {
+    shrines.push(new __WEBPACK_IMPORTED_MODULE_1__BuffShrine__["a" /* default */](createVector(random(windowWidth), random(windowHeight))));
+  }
 }
 
 
@@ -165,7 +184,7 @@ class Guy extends Object(__WEBPACK_IMPORTED_MODULE_0__Buffable__["a" /* default 
 const CollidableSphere = (superclass) => {
   return class extends superclass {
     isCollision(collidable) {
-      return this.p.dist(collidable.p) < Math.min(this.radius, collidable.radius);
+      return this.p.dist(collidable.p) < this.radius + collidable.radius;
     }
   }
 }
@@ -252,6 +271,30 @@ const Buffable = (superclass) => {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Buffable);
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Buff__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CollidableSphere__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DrawableSphere__ = __webpack_require__(11);
+
+
+
+
+class BuffShrine extends Object(__WEBPACK_IMPORTED_MODULE_1__CollidableSphere__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_2__DrawableSphere__["a" /* default */])(Object)) {
+  constructor(p) {
+    super(...arguments);
+    
+    this.p = p;
+    this.radius = 30;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (BuffShrine);
 
 
 /***/ })
