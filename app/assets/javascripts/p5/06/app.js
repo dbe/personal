@@ -78,6 +78,8 @@
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Guy__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Buff__ = __webpack_require__(12);
+
 
 
 var guy;
@@ -89,8 +91,12 @@ window.setup = function() {
   guy = new __WEBPACK_IMPORTED_MODULE_0__Guy__["a" /* default */](createVector(100, 100));
 }
 
+window.mouseClicked = function() {
+  guy.applyBuff(new __WEBPACK_IMPORTED_MODULE_1__Buff__["a" /* default */]('speed', 20, 50));
+}
+
 window.draw = function() {
-  guy.move();
+  guy.update();
   guy.draw();
 }
 
@@ -100,12 +106,14 @@ window.draw = function() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CollidableSphere__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DrawableSphere__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Buffable__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CollidableSphere__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DrawableSphere__ = __webpack_require__(11);
 
 
 
-class Guy extends Object(__WEBPACK_IMPORTED_MODULE_1__DrawableSphere__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_0__CollidableSphere__["a" /* default */])(Object)) {
+
+class Guy extends Object(__WEBPACK_IMPORTED_MODULE_0__Buffable__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_2__DrawableSphere__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_1__CollidableSphere__["a" /* default */])(Object))) {
   constructor(p, speed = 5, radius = 10, range = 100) {
     super(...arguments);
 
@@ -115,7 +123,9 @@ class Guy extends Object(__WEBPACK_IMPORTED_MODULE_1__DrawableSphere__["a" /* de
     this.range = range;
   }
 
-  move() {
+  update() {
+    super.update();
+
     var desiredVelocity = createVector(0, 0);
 
     if(keyIsDown(65)) {
@@ -135,7 +145,6 @@ class Guy extends Object(__WEBPACK_IMPORTED_MODULE_1__DrawableSphere__["a" /* de
   }
 
   draw() {
-    // line(this.p.x, this.p.y, mouseX, mouseY);
     let mouse = createVector(mouseX, mouseY);
     let range = mouse.sub(this.p).setMag(this.range);
 
@@ -178,6 +187,71 @@ const DrawableSphere = (superclass) => {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (DrawableSphere);
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Buff {
+  constructor(attr, amount, duration) {
+    this.attr = attr;
+    this.amount = amount;
+    this.durationRemaining = duration;
+  }
+
+  on(buffable) {
+    buffable[this.attr] += this.amount;
+  }
+
+  off(buffable) {
+    buffable[this.attr] -= this.amount;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Buff);
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const Buffable = (superclass) => {
+  return class extends superclass {
+    constructor() {
+      super(...arguments);
+
+      this.buffs = [];
+    }
+
+    applyBuff(buff) {
+      this.buffs.push(buff);
+      buff.on(this);
+    }
+
+    update() {
+      this.buffs = this.buffs.filter(buff => {
+        buff.durationRemaining--;
+
+        //Should just be === 0, but just protecting against weird cases I cant think of.
+        if(buff.durationRemaining <= 0) {
+          this._removeBuff(buff);
+          return false;
+        }
+
+        return true;
+      });
+    }
+
+    _removeBuff(buff) {
+      buff.off(this);
+    }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Buffable);
 
 
 /***/ })

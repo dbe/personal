@@ -1,7 +1,8 @@
+import Buffable from './Buffable';
 import CollidableSphere from './CollidableSphere';
 import DrawableSphere from './DrawableSphere';
 
-class Guy extends DrawableSphere(CollidableSphere(Object)) {
+class Guy extends Buffable(DrawableSphere(CollidableSphere(Object))) {
   constructor(p, speed = 5, radius = 10, range = 100) {
     super(...arguments);
 
@@ -11,7 +12,9 @@ class Guy extends DrawableSphere(CollidableSphere(Object)) {
     this.range = range;
   }
 
-  move() {
+  update() {
+    super.update();
+
     var desiredVelocity = createVector(0, 0);
 
     if(keyIsDown(65)) {
@@ -31,7 +34,6 @@ class Guy extends DrawableSphere(CollidableSphere(Object)) {
   }
 
   draw() {
-    // line(this.p.x, this.p.y, mouseX, mouseY);
     let mouse = createVector(mouseX, mouseY);
     let range = mouse.sub(this.p).setMag(this.range);
 

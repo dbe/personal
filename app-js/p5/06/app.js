@@ -1,4 +1,5 @@
 import Guy from './Guy';
+import Buff from './Buff';
 
 var guy;
 
@@ -9,7 +10,11 @@ window.setup = function() {
   guy = new Guy(createVector(100, 100));
 }
 
+window.mouseClicked = function() {
+  guy.applyBuff(new Buff('speed', 20, 50));
+}
+
 window.draw = function() {
-  guy.move();
+  guy.update();
   guy.draw();
 }
