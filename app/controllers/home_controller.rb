@@ -27,7 +27,8 @@ class HomeController < ApplicationController
       '03_single_dropper',
       '04_mouse_dropper',
       '05',
-      '06'
+      '06',
+      '07'
     ]
     render layout: false
   end

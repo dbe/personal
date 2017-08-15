@@ -60,67 +60,111 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 6:
-/***/ (function(module, exports) {
+/***/ 15:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-new p5(p => {
-  var WIDTH = 1200;
-  var HEIGHT = 600;
-  var GRAVITY = 2;
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Menu__ = __webpack_require__(17);
 
-  var pos, v;
 
-  p.setup = function() {
-    p.createCanvas(WIDTH, HEIGHT);
-    pos = {x: p.random(WIDTH), y: p.random(HEIGHT)};
-    v = {x: p.random(10), y: p.random(10) };
+const menu = new __WEBPACK_IMPORTED_MODULE_0__Menu__["a" /* default */]([
+  'Home',
+  'Inventory',
+  'Craft'
+]);
+
+window.setup = function() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+window.draw = function() {
+  clear();
+  menu.draw();
+}
+
+window.mouseClicked = function() {
+  menu.onClick();
+}
+
+
+/***/ }),
+
+/***/ 16:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const WIDTH = 300;
+
+class MenuItem {
+  constructor(text, i) {
+    this.text = text;
+
+    this.left = 0;
+    this.right = WIDTH;
+    this.top = i * 100;
+    this.bottom = this.top + 100;
   }
 
-  p.draw = function() {
-    checkBounds();
-    applyFriction();
+  draw() {
+    line(0, this.bottom, 300, this.bottom);
 
-    p.ellipse(pos.x, pos.y, 80, 80);
+    textStyle(NORMAL);
 
-    applyGravity();
-    applyVelocity();
-  }
-
-  function checkBounds() {
-    if(pos.y >= HEIGHT - 40) {
-      pos.y = HEIGHT - 40;
-      v.y *= -0.9;
+    if(this.isHovered()) {
+      textStyle(BOLD);
     }
 
-    if(pos.x <= 40) {
-      pos.x = 40;
-      v.x *= -1;
-    } else if(pos.x >= WIDTH - 40) {
-      pos.x = WIDTH - 40;
-      v.x *= -1;
+    text(this.text, 100, this.top + 50);
+  }
+
+  isHovered() {
+    return mouseX >= this.left &&
+       mouseX <= this.right &&
+       mouseY >= this.top &&
+       mouseY <= this.bottom;
+  }
+
+  onClick() {
+    if(this.isHovered()) {
+      alert("Clicked: " + this.text);
     }
   }
+}
 
-  function applyFriction() {
-    if(pos.y == HEIGHT - 40) {
-      v.x *= 0.97;
-    }
+/* harmony default export */ __webpack_exports__["a"] = (MenuItem);
+
+
+/***/ }),
+
+/***/ 17:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MenuItem__ = __webpack_require__(16);
+
+
+class Menu {
+  constructor(items) {
+    this.menuItems = items.map((item, i) => new __WEBPACK_IMPORTED_MODULE_0__MenuItem__["a" /* default */](item, i));
   }
 
-  function applyVelocity() {
-    pos.y += v.y;
-    pos.x += v.x;
+  draw() {
+    line(300, 0, 300, windowHeight);
+    this.menuItems.forEach(item => item.draw());
   }
 
-  function applyGravity() {
-    v.y += GRAVITY;
+  onClick() {
+    this.menuItems.forEach(item => item.onClick());
   }
-});
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Menu);
 
 
 /***/ })

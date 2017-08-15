@@ -6,5 +6,6 @@
       %ul
         = link_to i + 1, "p5/#{demo}"
 - else
+  = stylesheet_link_tag 'application'
   = javascript_include_tag 'http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.js'
   = javascript_include_tag "p5/#{@demo}/app.js"

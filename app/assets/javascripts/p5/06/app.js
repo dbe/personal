@@ -60,26 +60,82 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */,
-/* 1 */,
-/* 2 */,
-/* 3 */,
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Buff {
+  constructor(attr, amount, duration) {
+    this.attr = attr;
+    this.amount = amount;
+    this.durationRemaining = duration;
+  }
+
+  on(buffable) {
+    buffable[this.attr] += this.amount;
+  }
+
+  off(buffable) {
+    buffable[this.attr] -= this.amount;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Buff);
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const CollidableSphere = (superclass) => {
+  return class extends superclass {
+    isCollision(collidable) {
+      return this.p.dist(collidable.p) < this.radius + collidable.radius;
+    }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (CollidableSphere);
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const DrawableSphere = (superclass) => {
+  return class extends superclass {
+    draw() {
+      ellipse(this.p.x, this.p.y, this.radius, this.radius);
+    }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (DrawableSphere);
+
+
+/***/ }),
 /* 4 */,
 /* 5 */,
 /* 6 */,
 /* 7 */,
-/* 8 */
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Buff__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BuffShrine__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Guy__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Buff__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BuffShrine__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Guy__ = __webpack_require__(13);
 
 
 
@@ -123,13 +179,38 @@ function initShrines(count=10) {
 
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Buffable__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CollidableSphere__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DrawableSphere__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Buff__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CollidableSphere__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DrawableSphere__ = __webpack_require__(3);
+
+
+
+
+class BuffShrine extends Object(__WEBPACK_IMPORTED_MODULE_1__CollidableSphere__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_2__DrawableSphere__["a" /* default */])(Object)) {
+  constructor(p, buff) {
+    super(...arguments);
+
+    this.p = p;
+    this.buff = buff;
+    this.radius = 30;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (BuffShrine);
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Buffable__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CollidableSphere__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DrawableSphere__ = __webpack_require__(3);
 
 
 
@@ -179,63 +260,7 @@ class Guy extends Object(__WEBPACK_IMPORTED_MODULE_0__Buffable__["a" /* default 
 
 
 /***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const CollidableSphere = (superclass) => {
-  return class extends superclass {
-    isCollision(collidable) {
-      return this.p.dist(collidable.p) < this.radius + collidable.radius;
-    }
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (CollidableSphere);
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const DrawableSphere = (superclass) => {
-  return class extends superclass {
-    draw() {
-      ellipse(this.p.x, this.p.y, this.radius, this.radius);
-    }
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (DrawableSphere);
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Buff {
-  constructor(attr, amount, duration) {
-    this.attr = attr;
-    this.amount = amount;
-    this.durationRemaining = duration;
-  }
-
-  on(buffable) {
-    buffable[this.attr] += this.amount;
-  }
-
-  off(buffable) {
-    buffable[this.attr] -= this.amount;
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (Buff);
-
-
-/***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -273,31 +298,6 @@ const Buffable = (superclass) => {
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Buffable);
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Buff__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CollidableSphere__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__DrawableSphere__ = __webpack_require__(11);
-
-
-
-
-class BuffShrine extends Object(__WEBPACK_IMPORTED_MODULE_1__CollidableSphere__["a" /* default */])(Object(__WEBPACK_IMPORTED_MODULE_2__DrawableSphere__["a" /* default */])(Object)) {
-  constructor(p, buff) {
-    super(...arguments);
-
-    this.p = p;
-    this.buff = buff;
-    this.radius = 30;
-  }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (BuffShrine);
 
 
 /***/ })
