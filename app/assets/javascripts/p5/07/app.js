@@ -63,9 +63,23 @@
 /******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 15:
+/******/ ([
+/* 0 */,
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -75,11 +89,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-const game = new __WEBPACK_IMPORTED_MODULE_0__Game__["a" /* default */]();
-const gameView = new __WEBPACK_IMPORTED_MODULE_1__GameView__["a" /* default */](game);
+let game;
+let gameView;
 
 window.setup = function() {
   createCanvas(windowWidth, windowHeight);
+  game = new __WEBPACK_IMPORTED_MODULE_0__Game__["a" /* default */]();
+  gameView = new __WEBPACK_IMPORTED_MODULE_1__GameView__["a" /* default */](game);
 }
 
 window.draw = function() {
@@ -95,8 +111,7 @@ window.mouseClicked = function() {
 
 
 /***/ }),
-
-/***/ 16:
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -148,8 +163,7 @@ class MenuItem {
 
 
 /***/ }),
-
-/***/ 17:
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -177,12 +191,13 @@ class Menu {
 
 
 /***/ }),
-
-/***/ 18:
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Menu__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Component__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Menu__ = __webpack_require__(17);
+
 
 
 class Game {
@@ -195,20 +210,31 @@ class Game {
     };
 
     this.mine = {
-
+      toughness: 10,
+      quality: 3
     };
 
     this.drone = {
-
+      power: 5
     };
+
+    this.inventory = [];
   }
 
   update() {
     this.updateOutpost();
+    this.mineGoods();
   }
 
   updateOutpost() {
     this.outpost.shields = Math.min(this.outpost.maxShields, this.outpost.shields + this.outpost.recharge);
+  }
+
+  mineGoods() {
+    if(random(1) < (this.drone.power / this.mine.toughness) * .05) {
+      let item = __WEBPACK_IMPORTED_MODULE_0__Component__["a" /* default */].roll(this.mine.quality);
+      console.log(`Mined: ${item.toString()}`);
+    }
   }
 }
 
@@ -216,49 +242,44 @@ class Game {
 
 
 /***/ }),
-
-/***/ 19:
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Menu__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__HomeView__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Menu__ = __webpack_require__(17);
 
+
+
+const VIEW_RENDERERS = {
+  'Home': __WEBPACK_IMPORTED_MODULE_0__HomeView__["a" /* default */],
+  'Inventory': __WEBPACK_IMPORTED_MODULE_0__HomeView__["a" /* default */],
+  'Craft': __WEBPACK_IMPORTED_MODULE_0__HomeView__["a" /* default */]
+}
 
 class GameView {
   constructor(game) {
     this.game = game;
-
-    this.currentView = 'Home';
-    this.menu = new __WEBPACK_IMPORTED_MODULE_0__Menu__["a" /* default */]([
+    this.menu = new __WEBPACK_IMPORTED_MODULE_1__Menu__["a" /* default */]([
       'Home',
       'Inventory',
       'Craft'
     ], this.selectView.bind(this));
+
+    this.selectView('Home');
   }
 
   draw() {
     this.menu.draw(this.currentView);
     translate(this.menu.width, 0);
 
-    this.drawHeader();
-    this.drawOutpost();
-  }
-
-  //TODO: Most likely factor this out
-  drawHeader() {
-    fill(0);
-    textSize(30);
-    text(this.currentView, (width - this.menu.width) / 2, 30);
-  }
-
-  drawOutpost() {
-    fill(255);
-    ellipse(300, 300, this.game.outpost.shields, this.game.outpost.shields);
+    this.viewRenderer.draw();
   }
 
   //TODO: This isn't the best idea to be storing views as strings
   selectView(view) {
     this.currentView = view;
+    this.viewRenderer = new VIEW_RENDERERS[this.currentView](this.game, width - this.menu.width, height);
   }
 
   onClick() {
@@ -269,6 +290,150 @@ class GameView {
 /* harmony default export */ __webpack_exports__["a"] = (GameView);
 
 
-/***/ })
+/***/ }),
+/* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/******/ });
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__HashMapRenderer__ = __webpack_require__(21);
+
+
+class HomeView {
+  constructor(game, width, height) {
+    this.game = game;
+    this.width = width;
+    this.height = height;
+  }
+
+  draw() {
+    this.drawStats();
+    this.drawOutpost();
+  }
+
+  drawStats() {
+    __WEBPACK_IMPORTED_MODULE_0__HashMapRenderer__["a" /* default */].draw("Outpost", this.game.outpost, 20, 20);
+  }
+
+  drawOutpost() {
+    fill(255);
+    ellipse(this.width / 2, this.height / 2, this.game.outpost.shields, this.game.outpost.shields);
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (HomeView);
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class HashMapRenderer {
+  static draw(title, map, x, y) {
+    fill(0);
+
+    textStyle(BOLD);
+    text(title, x, y);
+    textStyle(NORMAL);
+
+    Object.keys(map).forEach((k, i) => {
+      text(`${k}: ${map[k]}`, x, y + 20 * (i + 1))
+    });
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (HashMapRenderer);
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const ITEM_PROTOTYPES = [
+  {
+    power: 3,
+    battery: -5
+  },
+  {
+    battery: 5
+  },
+  {
+    shields: 50,
+    battery: -10
+  }
+];
+
+class Component {
+  constructor(attributes) {
+    this.attributes = attributes;
+  }
+
+  toString() {
+    return Object.keys(this.attributes).map(k => {
+      return `${k}: ${this.attributes[k]}`;
+    }).join("\n");
+  }
+
+  //Rolls a new component of given quality
+  static roll(quality) {
+    let prototypes = this.rollPrototypes();
+    prototypes = prototypes.map(pt => this.applyQualityAndBlur(pt, quality));
+    let combined = this.combinePrototypes(prototypes);
+
+    return new Component(combined);
+  }
+
+  static combinePrototypes(prototypes) {
+    let combined = {};
+
+    prototypes.forEach(pt => {
+      Object.keys(pt).forEach(k => {
+        let value = combined[k] || 0;
+        combined[k] = value + pt[k];
+      });
+    });
+
+    return combined;
+  }
+
+  //Multiplies prototype by quality factor
+  //Also applies a gaussian blur such that doubling, or halving the value occurs 3 stds outside the mean
+  static applyQualityAndBlur(pt, quality) {
+    let blurred = {};
+
+    Object.keys(pt).forEach(k => {
+      let value = pt[k];
+      blurred[k] = Math.round(quality * randomGaussian(value, value / 3));
+    });
+
+    return blurred;
+  }
+
+  static getRandomPrototype() {
+    return ITEM_PROTOTYPES[Math.floor(random(ITEM_PROTOTYPES.length))]
+  }
+
+  static rollPrototypes() {
+    let prototypes = [];
+
+    for(let i = 0; i < this.rollNumPrototypes(); i++) {
+      prototypes.push(this.getRandomPrototype());
+    }
+
+    return prototypes;
+  }
+
+  //Calculates how many of the above prototypes get combined into the component
+  //Minimum of 1, but has a gaussian distribution of accumulating more
+  static rollNumPrototypes() {
+    return Math.max(1, Math.floor(randomGaussian(1)));
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component);
+
+
+/***/ })
+/******/ ]);

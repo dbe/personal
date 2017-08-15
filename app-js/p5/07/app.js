@@ -1,11 +1,13 @@
 import Game from './Game';
 import GameView from './GameView';
 
-const game = new Game();
-const gameView = new GameView(game);
+let game;
+let gameView;
 
 window.setup = function() {
   createCanvas(windowWidth, windowHeight);
+  game = new Game();
+  gameView = new GameView(game);
 }
 
 window.draw = function() {
