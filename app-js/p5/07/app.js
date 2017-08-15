@@ -1,10 +1,6 @@
-import Menu from './Menu';
+import Game from './Game';
 
-const menu = new Menu([
-  'Home',
-  'Inventory',
-  'Craft'
-]);
+const game = new Game();
 
 window.setup = function() {
   createCanvas(windowWidth, windowHeight);
@@ -12,9 +8,9 @@ window.setup = function() {
 
 window.draw = function() {
   clear();
-  menu.draw();
+  game.draw();
 }
 
 window.mouseClicked = function() {
-  menu.onClick();
+  game.onClick();
 }

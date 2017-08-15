@@ -1,11 +1,9 @@
-const WIDTH = 300;
-
 class MenuItem {
-  constructor(text, i) {
+  constructor(text, i, width) {
     this.text = text;
 
     this.left = 0;
-    this.right = WIDTH;
+    this.right = width;
     this.top = i * 100;
     this.bottom = this.top + 100;
   }
@@ -13,13 +11,12 @@ class MenuItem {
   draw() {
     line(0, this.bottom, 300, this.bottom);
 
-    textStyle(NORMAL);
-
     if(this.isHovered()) {
       textStyle(BOLD);
     }
 
     text(this.text, 100, this.top + 50);
+    textStyle(NORMAL);
   }
 
   isHovered() {
@@ -29,9 +26,9 @@ class MenuItem {
        mouseY <= this.bottom;
   }
 
-  onClick() {
+  onClick(selectView) {
     if(this.isHovered()) {
-      alert("Clicked: " + this.text);
+      selectView(this.text);
     }
   }
 }

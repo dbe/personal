@@ -70,14 +70,10 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Menu__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Game__ = __webpack_require__(18);
 
 
-const menu = new __WEBPACK_IMPORTED_MODULE_0__Menu__["a" /* default */]([
-  'Home',
-  'Inventory',
-  'Craft'
-]);
+const game = new __WEBPACK_IMPORTED_MODULE_0__Game__["a" /* default */]();
 
 window.setup = function() {
   createCanvas(windowWidth, windowHeight);
@@ -85,11 +81,11 @@ window.setup = function() {
 
 window.draw = function() {
   clear();
-  menu.draw();
+  game.draw();
 }
 
 window.mouseClicked = function() {
-  menu.onClick();
+  game.onClick();
 }
 
 
@@ -99,14 +95,12 @@ window.mouseClicked = function() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-const WIDTH = 300;
-
 class MenuItem {
-  constructor(text, i) {
+  constructor(text, i, width) {
     this.text = text;
 
     this.left = 0;
-    this.right = WIDTH;
+    this.right = width;
     this.top = i * 100;
     this.bottom = this.top + 100;
   }
@@ -114,13 +108,12 @@ class MenuItem {
   draw() {
     line(0, this.bottom, 300, this.bottom);
 
-    textStyle(NORMAL);
-
     if(this.isHovered()) {
       textStyle(BOLD);
     }
 
     text(this.text, 100, this.top + 50);
+    textStyle(NORMAL);
   }
 
   isHovered() {
@@ -130,9 +123,9 @@ class MenuItem {
        mouseY <= this.bottom;
   }
 
-  onClick() {
+  onClick(selectView) {
     if(this.isHovered()) {
-      alert("Clicked: " + this.text);
+      selectView(this.text);
     }
   }
 }
@@ -150,21 +143,73 @@ class MenuItem {
 
 
 class Menu {
-  constructor(items) {
-    this.menuItems = items.map((item, i) => new __WEBPACK_IMPORTED_MODULE_0__MenuItem__["a" /* default */](item, i));
+  constructor(items, selectView) {
+    this.width = 300;
+    this.menuItems = items.map((item, i) => new __WEBPACK_IMPORTED_MODULE_0__MenuItem__["a" /* default */](item, i, this.width));
+    this.selectView = selectView;
   }
 
   draw() {
-    line(300, 0, 300, windowHeight);
+    line(this.width, 0, this.width, windowHeight);
     this.menuItems.forEach(item => item.draw());
   }
 
   onClick() {
-    this.menuItems.forEach(item => item.onClick());
+    this.menuItems.forEach(item => item.onClick(this.selectView));
   }
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (Menu);
+
+
+/***/ }),
+
+/***/ 18:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Menu__ = __webpack_require__(17);
+
+
+class Game {
+  constructor() {
+    this.currentView = 'Home';
+
+    this.menu = new __WEBPACK_IMPORTED_MODULE_0__Menu__["a" /* default */]([
+      'Home',
+      'Inventory',
+      'Craft'
+    ], this.selectView.bind(this));
+  }
+
+  draw() {
+    this.menu.draw();
+    translate(this.menu.width, 0);
+    
+    this.drawHeader();
+  }
+
+  //TODO: Most likely factor this out
+  drawHeader() {
+    let oldSize = textSize();
+    textSize(30);
+
+    text(this.currentView, (width - this.menu.width) / 2, 30);
+
+    textSize(oldSize);
+  }
+
+  onClick() {
+    this.menu.onClick();
+  }
+
+  //TODO: This isn't the best idea to be storing views as strings
+  selectView(view) {
+    this.currentView = view;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Game);
 
 
 /***/ })
