@@ -7,9 +7,9 @@ class Menu {
     this.selectView = selectView;
   }
 
-  draw() {
+  draw(selectedView) {
     line(this.width, 0, this.width, windowHeight);
-    this.menuItems.forEach(item => item.draw());
+    this.menuItems.forEach(item => item.draw(item.text === selectedView));
   }
 
   onClick() {
