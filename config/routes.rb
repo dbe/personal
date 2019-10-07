@@ -7,5 +7,7 @@ Rails.application.routes.draw do
 
   get '/p5(/:demo)', :to => 'home#p5'
 
-  get '/:first_nav(/:second_nav(/:third_nav))', :to => 'home#static', :defaults => {:first_nav => 'about', :second_nav => 'career', :third_nav => 'under_construction'}
+  get '/resume', :to => 'home#resume'
+
+  get '/:first_nav(/:second_nav(/:third_nav))', :to => 'home#static', :defaults => {:first_nav => 'about', :second_nav => 'career', :third_nav => 'all'}
 end

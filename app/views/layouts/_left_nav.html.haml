@@ -10,9 +10,13 @@
       = nav_link(params, 'experience')
       %ul
         = nav_link(params, 'experience', 'career')
-        = nav_link(params, 'experience', 'products')
+        = nav_link(params, 'experience', 'projects')
         %ul
-          = nav_link(params, 'experience', 'products', 'under_construction')
+          = nav_link(params, 'experience', 'projects', 'all')
+          = nav_link(params, 'experience', 'projects', 'rippld')
+      %li.list-unstyled
+        = link_to('Resume', '/resume', {data: {turbolinks: false}} )
+      = nav_link(params, 'writing')
 .row
   .col-md-12
     #social-links

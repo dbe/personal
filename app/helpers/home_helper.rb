@@ -22,7 +22,7 @@ module HomeHelper
   end
 
   def is_selected?(params, first_nav=nil, second_nav=nil, third_nav=nil)
-    selected = true 
+    selected = true
 
     if first_nav and not params[:first_nav] == first_nav
       selected = false

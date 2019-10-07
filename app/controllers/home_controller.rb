@@ -4,11 +4,24 @@ class HomeController < ApplicationController
       return render 'about'
     elsif params[:first_nav] == 'contact'
       return render 'contact'
+    elsif params[:first_nav] == 'writing'
+      return render 'writing'
     elsif params[:second_nav] == 'career'
       return render 'career'
+    elsif params[:second_nav] == 'projects' && params[:third_nav].nil?
+      return render 'projects'
     else
       return render params[:third_nav]
     end
+  end
+
+  def resume
+    send_file(
+      "#{Rails.root}/public/resume.pdf",
+      filename: "DavidBrianEthier.pdf",
+      type: "application/pdf",
+      disposition: 'attachment'
+    )
   end
 
   def idle

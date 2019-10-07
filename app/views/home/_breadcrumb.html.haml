@@ -1,5 +1,5 @@
 %h2.crumb
   = params[:first_nav].titleize
 %h1.crumb
-  = params[:second_nav].titleize
+  = params[:second_nav].titleize if params[:second_nav]
 .horizontal-line
