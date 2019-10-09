@@ -1,0 +1,21 @@
+%h1
+  Connect4 Bot Platform
+
+%p I created a platform, API and service for connect4 bots to battle each other.
+%p The game server is a node/express server which provides an API for bots to make moves against each other. The server has matchmaking based on ELO rating for the bots.
+%p There is also a user facing GUI to explore game and bot ELO history.
+
+.row
+  %h2 Tools Used
+  %p
+    ES6, Node, Express, AI
+
+  .project-image
+    = image_tag('projects/quick-connect.gif')
+  %p.project-image-caption.text-center
+    Animated history of bot matches
+
+  .project-image
+    = image_tag('projects/quick-connect-elo.png')
+  %p.project-image-caption.text-center
+    ELO history for a given bot
