@@ -13,12 +13,20 @@
         = nav_link(params, 'experience', 'projects')
         %ul
           = nav_link(params, 'experience', 'projects', 'all')
+          = nav_link(params, 'experience', 'projects', 'amazon_bitcoins')
+          = nav_link(params, 'experience', 'projects', 'burner_wallet')
+          = nav_link(params, 'experience', 'projects', 'chess_chat_bot')
+          = nav_link(params, 'experience', 'projects', 'connect4_bot_platform')
           = nav_link(params, 'experience', 'projects', 'rippld')
+          = nav_link(params, 'experience', 'projects', 'solidcoin')
+          = nav_link(params, 'experience', 'projects', 'touchpoints')
+          = nav_link(params, 'experience', 'projects', 'traveljoy')
+
       %li.list-unstyled
         = link_to('Resume', '/resume', {data: {turbolinks: false}} )
       %li.list-unstyled
         = link_to('Writing', 'https://medium.com/@david.brian.ethier', {target: '_blank'})
-.row
+.row.hidden-xs
   .col-md-12
     #social-links
       = link_to image_tag('GitHub-Mark-32px.png'), 'http://www.github.com/dbe', :target => '_blank'

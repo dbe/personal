@@ -1,14 +1,15 @@
-Rippld project
+%h1
+  Rippld
 
-#slides
-  = image_tag('rippld-website.png')
-  = image_tag('rippld-neo4j.png')
+%p
+  I was hired by Rippld to architect the data model to be used for their social network. I also did research into scaling options to be considered if they ran up against performance limits of their existing Elastic Search database. I created a proof of concept using neo4j to store social data and allow for efficient queries.
 
-:javascript
-  $(function() {
-    $('#slides').slidesjs({
-      width: 400,
-      height: 400,
-    });
-  });
+.row
+  %h2 Tools Used
+  %p
+    Neo4j, Elastic Search, Python
 
+  .project-image
+    = image_tag('projects/rippld-neo4j.png')
+  %p.project-image-caption.text-center
+    A neo4j visualization
