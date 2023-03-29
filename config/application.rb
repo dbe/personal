@@ -1,6 +1,9 @@
 require File.expand_path('../boot', __FILE__)
 
 # require 'rails/all'
+# I commented this out to get rid of active record: https://stackoverflow.com/questions/19078044/disable-activerecord-for-rails-4
+# https://github.com/dbe/personal/commit/3cd4d6d5d352094961512583c065fe0091430955
+# I also had to remove other references to active_record in the enviroments files.
 require 'action_controller/railtie'
 require 'action_view/railtie'
 require 'action_mailer/railtie'
