@@ -11,6 +11,7 @@ gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'puma'
 gem "bigdecimal", "1.4.4"
+gem 'sqlite3', '~> 1.3.6'
 
 group :development, :test do
   gem 'byebug'
@@ -18,7 +19,6 @@ group :development, :test do
   gem 'spring'
   gem 'pry-rails'
   gem 'pry-rescue'
-  gem 'sqlite3', '~> 1.3.6'
 end
 
 group :development do
